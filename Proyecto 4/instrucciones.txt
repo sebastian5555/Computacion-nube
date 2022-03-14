@@ -1,0 +1,46 @@
+sudo apt update
+sudo apt install python-pip
+
+#Descargar todas las librerias con sudo para no tener problemas con los permisos.
+
+sudo pip3 install plotly
+sudo pip3 install pandas
+sudo pip3 install dash
+sudo pip3 install gunicorn 
+#Libreria para integrar aplicación de python con los servicios de AWS por consola.
+sudo pip3 install boto3
+
+sudo apt-get install gunicorn
+#Lanza servidor con el archivo app.py por el puerto 80.
+sudo screen gunicorn --workers 1 --log-level=debug --timeout 60 --bind :80 app:server
+#Para abandonar el terminal CTRLA+A y CTRL+D. El servidor seguira corriendo.
+
+
+sudo apt install awscli
+sudo apt-get update
+aws configure
+#Usar ID y clave de acceso creada 
+#default region la usada en su instacia(us-east-1)
+#default output format dejelo vacio.
+aws ec2 describe-instances
+#Listara las instancias creadas en su cuenta aws.
+
+
+import boto3
+
+#Se busca el servicio
+sns = boto3.resource('sns')
+#Se inicializa el tema creado
+topic = sns.Topic(arn="arn:aws:sns:us-east-1:150839082595:SM_proyecto4_comments")
+#Se publica el mensaje
+topic.publish(Message=value)
+
+
+dynamodb = boto3.resource('dynamodb')
+#Se inicializa la tabla creada
+table = dynamodb.Table('SM_Proyecto4_comments')
+#Se ingresa el item a la tabla
+table.put_item(
+	Item={
+        	'partition key' : 'sort key',
+        })

@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  app-name:
+    build:
+      context: .
+    image: top_bundesliga_teams:1.5
+    container_name: top_bundesliga_teams
+    ports:
+      - "80:80"
+    restart: unless-stopped
